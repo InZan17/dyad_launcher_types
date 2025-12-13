@@ -1,0 +1,10 @@
+/ Describes how text should be scaled
+
+- Do nothing
+None
+
+- Only scale down to fit inside the boundaries
+Fit
+
+- Make the text as big as possible
+Max

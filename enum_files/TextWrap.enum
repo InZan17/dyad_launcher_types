@@ -1,0 +1,8 @@
+- Do nothing
+None
+- Wrap words
+Word
+- Wrap words (glyphs if word is too long)
+WordOrGlyph
+- Wrap glyphs
+Glyph

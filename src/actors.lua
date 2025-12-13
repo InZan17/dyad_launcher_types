@@ -1,0 +1,47 @@
+return {
+    {
+        name="Actor",
+        components={"actor"}
+    },
+    {
+        name="Actor2D",
+        extends="Actor",
+        components={"transform_2d", "background_appearance"}
+    },
+    {
+        name="FrameActor",
+        extends="Actor2D",
+        define_name="frame",
+        components={"children_2d"}
+    },
+    {
+        name="NinePatchFrameActor",
+        extends="FrameActor",
+        define_name="nine_patch_frame",
+        components={"nine_patch_info"}
+    },
+    {
+        name="ScrollFrameActor",
+        extends="FrameActor",
+        define_name="scroll_frame",
+        components={"scroll_info", "layout_info"}
+    },
+    {
+        name="TextureFrameActor",
+        extends="FrameActor",
+        define_name="texture_frame",
+        components={"viewport_2d"}
+    },
+    {
+        name="TextLabelActor",
+        extends="Actor2D",
+        define_name="text_label",
+        components={"text_info"}
+    },
+    {
+        name="NPTextLabelActor",
+        extends="TextLabelActor",
+        define_name="np_text_label",
+        components={"nine_patch_info"}
+    },
+}
