@@ -1,6 +1,7 @@
 declare class Vec2
     x: number
     y: number
+    function __div(self, rhs: Vec2)
 end
 
 declare Vec2: {

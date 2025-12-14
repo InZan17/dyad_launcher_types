@@ -4,9 +4,26 @@ return {
         components={"actor"}
     },
     {
+        name="Actor3D",
+        extends="Actor",
+        components={"transform_3d"}
+    },
+    {
+        name="MeshActor",
+        extends="Actor3D",
+        define_name="mesh",
+        components={"appearance"}
+    },
+    {
         name="Actor2D",
         extends="Actor",
         components={"transform_2d", "background_appearance"}
+    },
+    {
+        name="Scene3D",
+        extends="Actor2D",
+        define_name="scene_3d",
+        components={"children_3d"}
     },
     {
         name="FrameActor",
