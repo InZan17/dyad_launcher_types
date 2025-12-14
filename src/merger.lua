@@ -167,6 +167,51 @@ function merger:merge_actors()
             end
         end
 
+        local inherits_actor = {}
+
+        local last_len = -1
+
+        while last_len ~= #inherits_actor do
+            last_len = #inherits_actor
+            for _, actor_to_check in ipairs(actors) do
+
+                if actor_to_check.extends == actor_info.name then
+
+                    local add = true
+
+                    for _, maybe_duplicate_actor in ipairs(inherits_actor) do
+                        if actor_to_check == maybe_duplicate_actor then
+                            add = false
+                            break
+                        end
+                    end
+
+                    if add then
+                        table.insert(inherits_actor, actor_to_check)
+                    end
+                else
+
+                    for _, v2 in ipairs(inherits_actor) do
+                        if actor_to_check.extends == v2.name then
+
+                            local add = true
+
+                            for _, maybe_duplicate_actor in ipairs(inherits_actor) do
+                                if actor_to_check == maybe_duplicate_actor then
+                                    add = false
+                                    break
+                                end
+                            end
+
+                            if add then
+                                table.insert(inherits_actor, actor_to_check)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+
         if actor_info.define_name then
             table.insert(definable_actors, actor_info)
             local partial_type_def = "type Partial"..actor_info.name.." = {"
@@ -220,6 +265,14 @@ function merger:merge_actors()
                 end
             end
         end
+
+        local is_a_options = "string"
+
+        for i, inherits in ipairs(inherits_actor) do
+            is_a_options = is_a_options.." | \""..inherits.name.."\""
+        end
+
+        class_def = class_def.."\n    function is_a(self, type: "..is_a_options.."): boolean"
 
         class_def = class_def.."\nend"
 
