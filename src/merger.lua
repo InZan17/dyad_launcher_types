@@ -268,13 +268,51 @@ function merger:merge_actors()
             end
         end
 
-        local is_a_options = "string"
+        local is_a_options = ""
 
-        for i, inherits in ipairs(inherits_actor) do
-            is_a_options = is_a_options.." | \""..inherits.name.."\""
+        for _, inherits in ipairs(inherits_actor) do
+            is_a_options = is_a_options..(is_a_options == "" and "\"" or " | \"")..inherits.name.."\""
         end
 
-        class_def = class_def.."\n    function is_a(self, type: "..is_a_options.."): boolean"
+        if is_a_options ~= "" then
+            class_def = class_def.."\n    function is_a(self, type: "..is_a_options.."): boolean"
+        end
+
+        local is_a_options = ""
+
+        for _, inherited in ipairs(inherited_actors) do
+            is_a_options = is_a_options..(is_a_options == "" and "\"" or " | \"")..inherited.name.."\""
+        end
+
+        if is_a_options ~= "" then
+            class_def = class_def.."\n    function is_a(self, type: "..is_a_options.."): true"
+        end
+
+        local is_a_options = ""
+
+        for _, actor in ipairs(actors) do
+            local add = true
+            for _, inherits in pairs(inherits_actor) do
+                if inherits == actor or not add then
+                    add = false
+                    break
+                end
+            end
+            for _, inherited in pairs(inherited_actors) do
+                if inherited == actor or not add then
+                    add = false
+                    break
+                end
+            end
+            if add then
+                is_a_options = is_a_options..(is_a_options == "" and "\"" or " | \"")..actor.name.."\""
+            end
+        end
+
+        if is_a_options ~= "" then
+            class_def = class_def.."\n    function is_a(self, type: "..is_a_options.."): false"
+        end
+            
 
         class_def = class_def.."\nend"
 
