@@ -18,6 +18,12 @@ return {
     {
         name="background_texture",
         type="Texture",
+        include_partial=false,
+    },
+    {
+        name="background_texture",
+        type="Texture | string",
+        include_actor=false,
     },
     {
         name="background_uv_offset",

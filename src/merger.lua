@@ -254,14 +254,16 @@ function merger:merge_actors()
             end
 
             for _, field in ipairs(component) do
-                if field.type == "method" then
-                    class_def = class_def..
-                        (field.comment and "\n    --- "..field.comment or "")..
-                        "\n    function "..field.name.."(self"..(field.args and ", "..field.args or "")..")"..(field.returns and ": "..field.returns or "")
-                else
-                    class_def = class_def..
-                        (field.comment and "\n    --- "..field.comment or "")..
-                        "\n    "..field.name..": "..field.type..(field.required == false and "?" or "")
+                if field.include_actor ~= false then
+                    if field.type == "method" then
+                        class_def = class_def..
+                            (field.comment and "\n    --- "..field.comment or "")..
+                            "\n    function "..field.name.."(self"..(field.args and ", "..field.args or "")..")"..(field.returns and ": "..field.returns or "")
+                    else
+                        class_def = class_def..
+                            (field.comment and "\n    --- "..field.comment or "")..
+                            "\n    "..field.name..": "..field.type..(field.required == false and "?" or "")
+                    end
                 end
             end
         end

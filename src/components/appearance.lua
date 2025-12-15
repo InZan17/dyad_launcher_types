@@ -18,6 +18,12 @@ return {
     {
         name="texture",
         type="Texture",
+        include_partial=false,
+    },
+    {
+        name="texture",
+        type="Texture | string",
+        include_actor=false,
     },
     {
         name="uv_offset",
